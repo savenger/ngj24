@@ -101,10 +101,10 @@ void ACarSamplePawn::Tick(float Delta)
 	GetMesh()->SetAngularDamping(bMovingOnGround ? 0.0f : 3.0f);
 
 	// realign the camera yaw to face front
-	// float CameraYaw = BackSpringArm->GetRelativeRotation().Yaw;
-	// CameraYaw = FMath::FInterpTo(CameraYaw, 0.0f, Delta, 1.0f);
+	float CameraYaw = BackSpringArm->GetRelativeRotation().Yaw;
+	CameraYaw = FMath::FInterpTo(CameraYaw, 0.0f, Delta, 1.0f);
 
-	//BackSpringArm->SetRelativeRotation(FRotator(0.0f, CameraYaw, 0.0f));
+	BackSpringArm->SetRelativeRotation(FRotator(0.0f, CameraYaw, 0.0f));
 }
 
 void ACarSamplePawn::Steering(const FInputActionValue& Value)
