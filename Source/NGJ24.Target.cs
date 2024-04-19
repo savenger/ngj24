@@ -11,5 +11,6 @@ public class NGJ24Target : TargetRules
 		DefaultBuildSettings = BuildSettingsVersion.V4;
 		IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_3;
 		ExtraModuleNames.Add("NGJ24");
+		ExtraModuleNames.Add("CarSample");
 	}
 }
