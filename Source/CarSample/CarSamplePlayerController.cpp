@@ -19,22 +19,22 @@ void ACarSamplePlayerController::BeginPlay()
 	}
 
 	// spawn the UI widget and add it to the viewport
-	VehicleUI = CreateWidget<UCarSampleUI>(this, VehicleUIClass);
+	//VehicleUI = CreateWidget<UCarSampleUI>(this, VehicleUIClass);
 
-	check(VehicleUI);
+	//check(VehicleUI);
 
-	VehicleUI->AddToViewport();
+	//VehicleUI->AddToViewport();
 }
 
 void ACarSamplePlayerController::Tick(float Delta)
 {
 	Super::Tick(Delta);
 
-	if (IsValid(VehiclePawn) && IsValid(VehicleUI))
-	{
-		VehicleUI->UpdateSpeed(VehiclePawn->GetChaosVehicleMovement()->GetForwardSpeed());
-		VehicleUI->UpdateGear(VehiclePawn->GetChaosVehicleMovement()->GetCurrentGear());
-	}
+	// if (IsValid(VehiclePawn) && IsValid(VehicleUI))
+	// {
+	// 	VehicleUI->UpdateSpeed(VehiclePawn->GetChaosVehicleMovement()->GetForwardSpeed());
+	// 	VehicleUI->UpdateGear(VehiclePawn->GetChaosVehicleMovement()->GetCurrentGear());
+	// }
 }
 
 void ACarSamplePlayerController::OnPossess(APawn* InPawn)

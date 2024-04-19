@@ -33,7 +33,7 @@ protected:
 	TSubclassOf<UCarSampleUI> VehicleUIClass;
 
 	/** Pointer to the UI widget */
-	TObjectPtr<UCarSampleUI> VehicleUI;
+	//TObjectPtr<UCarSampleUI> VehicleUI;
 
 	// Begin Actor interface
 protected:
