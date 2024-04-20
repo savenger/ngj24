@@ -48,14 +48,17 @@ void UDamageableComponent::ShowEndScreenPanel()
 
 	ACarSampleOffroadCar* CarActor = Cast<ACarSampleOffroadCar>(PlayerOwner);
 
-
-	UUserWidget* UserWidget = CreateWidget(GetWorld(), CarActor->EndGamePanel, FName("GameOverPanel"));
-	
-	if (UserWidget != nullptr)
+	if (IsValid(CarActor->EndGamePanel))
 	{
-		// set the correct controller 
+
+		UUserWidget* UserWidget = CreateWidget(GetWorld(), CarActor->EndGamePanel, FName("GameOverPanel"));
+	
+		if (UserWidget != nullptr)
+		{
+			// set the correct controller 
 		
-		UserWidget->AddToViewport(0);
+			UserWidget->AddToViewport(0);
+		}
 	}
 }
 
