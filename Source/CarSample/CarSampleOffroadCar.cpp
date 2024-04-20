@@ -7,7 +7,7 @@
 #include "ChaosWheeledVehicleMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 
-//#include "../NGJ24/Public/DamageableComponent.h"
+#include "DamageableComponent.h"
 
 ACarSampleOffroadCar::ACarSampleOffroadCar()
 {

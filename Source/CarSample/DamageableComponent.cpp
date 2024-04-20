@@ -5,14 +5,10 @@
 #include "CarSample/CarSampleOffroadCar.h"
 #include "Blueprint/UserWidget.h"
 
-
 // Sets default values for this component's properties
 UDamageableComponent::UDamageableComponent()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
 
-	// ...
 }
 
 
@@ -48,6 +44,18 @@ void UDamageableComponent::ShowEndScreenPanel()
 
 	ACarSampleOffroadCar* CarActor = Cast<ACarSampleOffroadCar>(PlayerOwner);
 
+
+	if (OnDamageableDeath.IsBound())
+	{
+		
+		if (GEngine)
+			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Player Death"));
+		OnDamageableDeath.Broadcast(0);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No subscribers to OnDamageableDeath"));
+	}
 	//if (IsValid(CarActor->EndGamePanel))
 	//{
 

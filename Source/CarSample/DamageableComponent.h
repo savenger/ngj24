@@ -4,11 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include <Delegates/Delegate.h>
+
 #include "DamageableComponent.generated.h"
 
-
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class NGJ24_API UDamageableComponent : public UActorComponent
+class UDamageableComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
@@ -16,7 +17,7 @@ public:
 	// Sets default values for this component's properties
 	UDamageableComponent();
 
-	//DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTOnActorDeath)
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTOnActorDeath, int32, ActorIndex);
 
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly)
 	int32 MaxLife;
@@ -34,8 +35,9 @@ public:
 	void TakeDamage(int32 DamageAmount);
 
 	// Action that gets called when the actor dies
-	//UPROPERTY(BlueprintAssignable, Category = "CustomDamage")
-	//FTOnActorDeath OnDamageableDeath;
+	UPROPERTY(BlueprintAssignable, Category = "CustomDamage")
+		FTOnActorDeath OnDamageableDeath;
+
 	UFUNCTION(BlueprintCallable)
 	void ShowEndScreenPanel();
 };
