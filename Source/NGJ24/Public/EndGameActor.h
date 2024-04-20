@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "EndGameActor.generated.h"
 
+class UUIEndgameWidget;
+
 UCLASS()
 class NGJ24_API AEndGameActor : public AActor
 {
@@ -15,6 +17,9 @@ public:
 	// Sets default values for this actor's properties
 	AEndGameActor();
 
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UUserWidget> EndGameWidget;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -23,4 +28,6 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION(BlueprintCallable)
+	void OpenEndGamePanel(int32 PlayerIndex);
 };
