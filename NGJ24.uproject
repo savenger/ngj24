@@ -7,7 +7,11 @@
 		{
 			"Name": "NGJ24",
 			"Type": "Runtime",
-			"LoadingPhase": "Default"
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine",
+				"UMG"
+			]
 		},
 		{
 			"Name": "CarSample",
@@ -20,7 +24,6 @@
 		}
 	],
 	"Plugins": [
-		
 		{
 			"Name": "ChaosVehiclesPlugin",
 			"Enabled": true

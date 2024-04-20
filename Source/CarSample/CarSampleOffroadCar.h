@@ -40,10 +40,10 @@ class CARSAMPLE_API ACarSampleOffroadCar : public ACarSamplePawn
 	UDamageableComponent* DamageableComponent;
 
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = UI, meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<UUserWidget> EndGamePanel;
-
 public:
 
-	ACarSampleOffroadCar();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = UI, meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<UUserWidget> EndGamePanel;
+
+    ACarSampleOffroadCar();
 };

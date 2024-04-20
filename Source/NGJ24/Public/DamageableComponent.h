@@ -28,12 +28,10 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	int32 CurrentLife;
 public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	// Function to call to apply damage
 	UFUNCTION(BlueprintCallable, Category = "CustomDamage")
-		void TakeDamage(int32 DamageAmount);
+	void TakeDamage(int32 DamageAmount);
 
 	// Action that gets called when the actor dies
 	//UPROPERTY(BlueprintAssignable, Category = "CustomDamage")

@@ -3,13 +3,14 @@
 
 #include "DamageableComponent.h"
 #include "CarSample/CarSampleOffroadCar.h"
+#include "Blueprint/UserWidget.h"
+
 
 // Sets default values for this component's properties
 UDamageableComponent::UDamageableComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
 }
@@ -20,18 +21,10 @@ void UDamageableComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
+	CurrentLife = MaxLife;
 	
 }
 
-
-// Called every frame
-void UDamageableComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
-}
 
 void UDamageableComponent::TakeDamage(int32 DamageAmount)
 {
@@ -43,7 +36,8 @@ void UDamageableComponent::TakeDamage(int32 DamageAmount)
 		// Print on screen player dead
 		if (GEngine)
 			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Player is dead"));
-
+		
+		ShowEndScreenPanel();
 		
 	}
 }
@@ -55,6 +49,13 @@ void UDamageableComponent::ShowEndScreenPanel()
 	ACarSampleOffroadCar* CarActor = Cast<ACarSampleOffroadCar>(PlayerOwner);
 
 
-
+	UUserWidget* UserWidget = CreateWidget(GetWorld(), CarActor->EndGamePanel, FName("GameOverPanel"));
+	
+	if (UserWidget != nullptr)
+	{
+		// set the correct controller 
+		
+		UserWidget->AddToViewport(0);
+	}
 }
 
