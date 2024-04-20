@@ -42,8 +42,6 @@ class CARSAMPLE_API ACarSampleOffroadCar : public ACarSamplePawn
 
 public:
 
-	/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = UI, meta = (AllowPrivateAccess = "true"))
-	TSubclassOf<UUserWidget> EndGamePanel;*/
 
     ACarSampleOffroadCar();
 };

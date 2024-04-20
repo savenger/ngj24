@@ -34,7 +34,7 @@ ACarSampleOffroadCar::ACarSampleOffroadCar()
 	TireRearRight->SetCollisionProfileName(FName("NoCollision"));
 	TireRearRight->SetRelativeRotation(FRotator(0.0f, 180.0f, 0.0f));
 
-    //DamageableComponent = CreateDefaultSubobject<UDamageableComponent>(FName("Damageable Component"));
+    DamageableComponent = CreateDefaultSubobject<UDamageableComponent>(FName("Damageable Component"));
 
 
 	// adjust the cameras
