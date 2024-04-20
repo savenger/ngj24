@@ -37,6 +37,6 @@ public:
 	// Action that gets called when the actor dies
 	//UPROPERTY(BlueprintAssignable, Category = "CustomDamage")
 	//FTOnActorDeath OnDamageableDeath;
-
-		
+	UFUNCTION(BlueprintCallable)
+	void ShowEndScreenPanel();
 };

@@ -2,6 +2,7 @@
 
 
 #include "DamageableComponent.h"
+#include "CarSample/CarSampleOffroadCar.h"
 
 // Sets default values for this component's properties
 UDamageableComponent::UDamageableComponent()
@@ -42,6 +43,18 @@ void UDamageableComponent::TakeDamage(int32 DamageAmount)
 		// Print on screen player dead
 		if (GEngine)
 			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Player is dead"));
+
+		
 	}
+}
+
+void UDamageableComponent::ShowEndScreenPanel()
+{
+	AActor* PlayerOwner = GetOwner();
+
+	ACarSampleOffroadCar* CarActor = Cast<ACarSampleOffroadCar>(PlayerOwner);
+
+
+
 }
 
