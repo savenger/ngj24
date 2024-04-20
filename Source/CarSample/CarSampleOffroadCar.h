@@ -36,12 +36,12 @@ class CARSAMPLE_API ACarSampleOffroadCar : public ACarSamplePawn
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Meshes, meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* TireRearRight;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Damage, meta = (AllowPrivateAccess = "true"))
-	UDamageableComponent* DamageableComponent;
-
 
 public:
 
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Damage, meta = (AllowPrivateAccess = "true"))
+	UDamageableComponent* DamageableComponent;
 
     ACarSampleOffroadCar();
 };
