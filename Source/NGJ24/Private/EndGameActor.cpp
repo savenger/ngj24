@@ -4,6 +4,9 @@
 #include "EndGameActor.h"
 #include "Blueprint/UserWidget.h"
 #include "UIEndGameWidget.h"
+#include "UnrealEngine.h"
+#include "CarSample/CarSampleOffroadCar.h"
+
 
 // Sets default values
 AEndGameActor::AEndGameActor()
@@ -18,6 +21,18 @@ void AEndGameActor::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	// Get all component of type DamageableComponent
+	// and subscribe to the event OnDamage
+	TArray<APlayerController*> PlayerList;
+	//UEngine::GetAllLocalPlayerControllers(PlayerList);
+	for (APlayerController* PlayerController : PlayerList)
+	{
+		if (UDamageableComponent* DamageComponent = Cast<ACarSampleOffroadCar>(PlayerController->GetPawn())->DamageableComponent)
+		{
+			DamageableComponents.Push(DamageComponent);
+		}
+	}
+
 }
 
 // Called every frame

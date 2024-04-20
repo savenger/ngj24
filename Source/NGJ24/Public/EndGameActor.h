@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "CarSample/DamageableComponent.h"
 #include "EndGameActor.generated.h"
 
 class UUIEndgameWidget;
@@ -24,6 +25,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	TArray<UDamageableComponent*> DamageableComponents;
+	
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
