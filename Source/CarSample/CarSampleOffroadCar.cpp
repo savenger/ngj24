@@ -6,6 +6,7 @@
 #include "CarSampleOffroadWheelRear.h"
 #include "ChaosWheeledVehicleMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "../NGJ24/Public/DamageableComponent.h"
 
 ACarSampleOffroadCar::ACarSampleOffroadCar()
 {
@@ -31,6 +32,9 @@ ACarSampleOffroadCar::ACarSampleOffroadCar()
 	TireRearRight->SetupAttachment(GetMesh(), FName("VisWheel_BR"));
 	TireRearRight->SetCollisionProfileName(FName("NoCollision"));
 	TireRearRight->SetRelativeRotation(FRotator(0.0f, 180.0f, 0.0f));
+
+    DamageableComponent = CreateDefaultSubobject<UDamageableComponent>(FName("Damageable Component"));
+
 
 	// adjust the cameras
 	GetFrontSpringArm()->SetRelativeLocation(FVector(-5.0f, -30.0f, 135.0f));

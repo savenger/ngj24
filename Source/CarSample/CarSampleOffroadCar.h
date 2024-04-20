@@ -9,6 +9,8 @@
 /**
  *  Offroad car wheeled vehicle implementation
  */
+
+class UDamageableComponent;
 UCLASS(abstract)
 class CARSAMPLE_API ACarSampleOffroadCar : public ACarSamplePawn
 {
@@ -33,6 +35,9 @@ class CARSAMPLE_API ACarSampleOffroadCar : public ACarSamplePawn
 	/** RR Tire static mesh */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Meshes, meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* TireRearRight;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Damage, meta = (AllowPrivateAccess = "true"))
+		UDamageableComponent* DamageableComponent;
 
 public:
 
