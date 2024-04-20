@@ -11,11 +11,22 @@ void ACarSamplePlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
+	auto* LocalPlayer = GetLocalPlayer();
+	if( LocalPlayer)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Local Player: %s"), *LocalPlayer->GetNickname());
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Local Player null"))
+		return;
+	}
+	auto* AdvancedInputComponent = LocalPlayer->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>();
 	// get the enhanced input subsystem
-	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+	if (AdvancedInputComponent)
 	{
 		// add the mapping context so we get controls
-		Subsystem->AddMappingContext(InputMappingContext, 0);
+		AdvancedInputComponent->AddMappingContext(InputMappingContext, 0);
 	}
 
 	// spawn the UI widget and add it to the viewport

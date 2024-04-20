@@ -25,8 +25,6 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	UInputMappingContext* InputMappingContext;
 
-	/** Pointer to the controlled vehicle pawn */
-	TObjectPtr<ACarSamplePawn> VehiclePawn;
 
 	/** Type of the UI to spawn */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = UI)
@@ -42,6 +40,10 @@ protected:
 
 public:
 
+	/** Pointer to the controlled vehicle pawn */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<ACarSamplePawn> VehiclePawn;
+	
 	virtual void Tick(float Delta) override;
 
 	// End Actor interface
