@@ -78,7 +78,7 @@ void ACarSamplePawn::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 		EnhancedInputComponent->BindAction(HandbrakeAction, ETriggerEvent::Completed, this, &ACarSamplePawn::StopHandbrake);
 
 		// look around 
-		EnhancedInputComponent->BindAction(LookAroundAction, ETriggerEvent::Triggered, this, &ACarSamplePawn::LookAround);
+		//EnhancedInputComponent->BindAction(LookAroundAction, ETriggerEvent::Triggered, this, &ACarSamplePawn::LookAround);
 
 		// toggle camera 
 		EnhancedInputComponent->BindAction(ToggleCameraAction, ETriggerEvent::Triggered, this, &ACarSamplePawn::ToggleCamera);

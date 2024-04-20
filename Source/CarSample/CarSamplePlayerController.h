@@ -35,6 +35,9 @@ protected:
 
 	// Begin Actor interface
 protected:
+	FTimerHandle LocalPlayerTimerHandle;
+	UFUNCTION()
+	void TimerFunctionLocalPlayer();
 
 	virtual void BeginPlay() override;
 

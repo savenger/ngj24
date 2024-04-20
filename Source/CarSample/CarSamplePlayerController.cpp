@@ -7,6 +7,28 @@
 #include "EnhancedInputSubsystems.h"
 #include "ChaosWheeledVehicleMovementComponent.h"
 
+void ACarSamplePlayerController::TimerFunctionLocalPlayer()
+{
+	auto* LocalPlayer = GetLocalPlayer();
+	if( LocalPlayer)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Local Player: %s"), *LocalPlayer->GetNickname());
+	}
+	else
+	{
+		GetWorld()->GetTimerManager().SetTimer(LocalPlayerTimerHandle, this, &ACarSamplePlayerController::TimerFunctionLocalPlayer, 0.2,false);
+		UE_LOG(LogTemp, Warning, TEXT("Local Player null"))
+		return;
+	}
+	auto* AdvancedInputComponent = LocalPlayer->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>();
+	// get the enhanced input subsystem
+	if (AdvancedInputComponent)
+	{
+		// add the mapping context so we get controls
+		AdvancedInputComponent->AddMappingContext(InputMappingContext, 0);
+	}
+}
+
 void ACarSamplePlayerController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -18,6 +40,7 @@ void ACarSamplePlayerController::BeginPlay()
 	}
 	else
 	{
+		GetWorld()->GetTimerManager().SetTimer(LocalPlayerTimerHandle, this, &ACarSamplePlayerController::TimerFunctionLocalPlayer, 0.2,false);
 		UE_LOG(LogTemp, Warning, TEXT("Local Player null"))
 		return;
 	}
