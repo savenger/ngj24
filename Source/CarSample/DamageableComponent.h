@@ -38,6 +38,5 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "CustomDamage")
 		FTOnActorDeath OnDamageableDeath;
 
-	UFUNCTION(BlueprintCallable)
-	void ShowEndScreenPanel();
+
 };

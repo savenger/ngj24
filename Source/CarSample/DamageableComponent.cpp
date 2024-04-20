@@ -27,35 +27,26 @@ void UDamageableComponent::TakeDamage(int32 DamageAmount)
 	
 	CurrentLife = FMath::Clamp(CurrentLife, 0, CurrentLife - DamageAmount);
 	
+	
 	if (CurrentLife == 0)
 	{
 		// Print on screen player dead
 		if (GEngine)
 			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Player is dead"));
 		
-		ShowEndScreenPanel();
+		if (OnDamageableDeath.IsBound())
+		{
+
+			if (GEngine)
+				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Player Death"));
+			OnDamageableDeath.Broadcast(0);
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("No subscribers to OnDamageableDeath"));
+		}
 		
 	}
 }
 
-void UDamageableComponent::ShowEndScreenPanel()
-{
-	AActor* PlayerOwner = GetOwner();
-
-	ACarSampleOffroadCar* CarActor = Cast<ACarSampleOffroadCar>(PlayerOwner);
-
-
-	if (OnDamageableDeath.IsBound())
-	{
-		
-		if (GEngine)
-			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Player Death"));
-		OnDamageableDeath.Broadcast(0);
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("No subscribers to OnDamageableDeath"));
-	}
-	
-}
 
