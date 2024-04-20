@@ -18,14 +18,15 @@ public:
 
 	//DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTOnActorDeath)
 
-	UPROPERTY(BlueprintReadWrite)
-		int32 MaxLife;
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly)
+	int32 MaxLife;
+	
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
 	UPROPERTY(VisibleAnywhere)
-		int32 CurrentLife;
+	int32 CurrentLife;
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
