@@ -26,7 +26,7 @@ void UDamageableComponent::TakeDamage(int32 DamageAmount)
 	CurrentLife = FMath::Clamp(CurrentLife, 0, CurrentLife - static_cast<float>(DamageAmount));
 	if(DamageAmount != 0)
 	{
-		OnDamageNormalChange.Broadcast(CurrentLife / MaxLife);
+		OnDamageNormalChange.Broadcast((static_cast<float>(CurrentLife) / static_cast<float>(MaxLife)) - 1.0f);
 	}
 	
 	if (CurrentLife == 0)
