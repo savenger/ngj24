@@ -6,6 +6,7 @@
 #include "UIEndGameWidget.h"
 #include "UnrealEngine.h"
 #include "CarSample/CarSampleOffroadCar.h"
+#include <Kismet/GameplayStatics.h>
 
 
 // Sets default values
@@ -24,16 +25,19 @@ void AEndGameActor::BeginPlay()
 	// Get all component of type DamageableComponent
 	// and subscribe to the event OnDamage
 	TArray<APlayerController*> PlayerList;
-	//UEngine::GetAllLocalPlayerControllers(PlayerList);
+	PlayerList.Push(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+	PlayerList.Push(UGameplayStatics::GetPlayerController(GetWorld(), 1));
 	for (APlayerController* PlayerController : PlayerList)
 	{
 		if (UDamageableComponent* DamageComponent = Cast<ACarSampleOffroadCar>(PlayerController->GetPawn())->DamageableComponent)
 		{
 			DamageableComponents.Push(DamageComponent);
+			DamageComponent->OnDamageableDeath.AddUniqueDynamic(this, &AEndGameActor::OpenEndGamePanel);
 		}
 	}
 
 }
+
 
 // Called every frame
 void AEndGameActor::Tick(float DeltaTime)
