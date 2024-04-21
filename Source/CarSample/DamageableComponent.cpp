@@ -43,7 +43,6 @@ void UDamageableComponent::TakeDamage(int32 DamageAmount)
 			if (ACarSampleOffroadCar* CarPawn = Cast<ACarSampleOffroadCar>( GetOwner()))
 			{
 				OnDamageableDeath.Broadcast(CarPawn->CarOffroadPlayerIndex);
-
 			}
 		}
 		else
