@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "CarSample/DamageableComponent.h"
+#include "Engine/EngineTypes.h"
+
 #include "EndGameActor.generated.h"
 
 class UUIEndgameWidget;
@@ -27,10 +29,14 @@ protected:
 
 	TArray<UDamageableComponent*> DamageableComponents;
 	
+	FTimerHandle LocalPlayerTimerHandle;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable)
 	void OpenEndGamePanel(int32 PlayerIndex);
+
+	void SetOnEndGameEvent();
+
 };

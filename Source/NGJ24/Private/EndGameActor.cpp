@@ -22,20 +22,8 @@ void AEndGameActor::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	// Get all component of type DamageableComponent
-	// and subscribe to the event OnDamage
-	TArray<APlayerController*> PlayerList;
-	PlayerList.Push(UGameplayStatics::GetPlayerController(GetWorld(), 0));
-	PlayerList.Push(UGameplayStatics::GetPlayerController(GetWorld(), 1));
-	for (APlayerController* PlayerController : PlayerList)
-	{
-		if (UDamageableComponent* DamageComponent = Cast<ACarSampleOffroadCar>(PlayerController->GetPawn())->DamageableComponent)
-		{
-			DamageableComponents.Push(DamageComponent);
-			DamageComponent->OnDamageableDeath.AddUniqueDynamic(this, &AEndGameActor::OpenEndGamePanel);
-		}
-	}
 
+	SetOnEndGameEvent();
 }
 
 
@@ -70,6 +58,45 @@ void AEndGameActor::OpenEndGamePanel(int32 PlayerIndex)
 	{
 		if (GEngine)
 			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("EndGame widget not set"));
+	}
+}
+
+void AEndGameActor::SetOnEndGameEvent()
+{
+	if (DamageableComponents.Num() == 2)
+		return;
+	// Get all component of type DamageableComponent
+    // and subscribe to the event OnDamage
+	TArray<APlayerController*> PlayerList;
+	PlayerList.Push(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+	PlayerList.Push(UGameplayStatics::GetPlayerController(GetWorld(), 1));
+	for (APlayerController* PlayerController : PlayerList)
+	{
+		auto Pawn = PlayerController->GetPawn();
+		if (IsValid(Pawn))
+		{
+			if (ACarSampleOffroadCar* OffroadCarPawn = Cast<ACarSampleOffroadCar>(PlayerController->GetPawn()))
+			{
+				if (UDamageableComponent* DamageComponent = OffroadCarPawn->DamageableComponent)
+				{
+					DamageableComponents.Push(DamageComponent);
+					DamageComponent->OnDamageableDeath.AddUniqueDynamic(this, &AEndGameActor::OpenEndGamePanel);
+				}
+
+			}
+			else
+			{
+				UE_LOG(LogTemp, Warning, TEXT("Pawn is not a CarSampleOffroadCar on %s"), *PlayerController->GetName());
+
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Pawn is null on %s calling it again in X seconds"), *PlayerController->GetName());
+			GetWorld()->GetTimerManager().SetTimer(LocalPlayerTimerHandle, this, &AEndGameActor::SetOnEndGameEvent, 0.5, false);
+			break;
+		}
+	
 	}
 }
 
