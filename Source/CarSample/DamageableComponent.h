@@ -8,6 +8,7 @@
 
 #include "DamageableComponent.generated.h"
 
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class UDamageableComponent : public UActorComponent
 {
@@ -18,6 +19,7 @@ public:
 	UDamageableComponent();
 
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTOnActorDeath, int32, ActorIndex);
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnDamageNormalChange, float, DamageNormalised);
 
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly)
 	int32 MaxLife;
@@ -36,7 +38,8 @@ public:
 
 	// Action that gets called when the actor dies
 	UPROPERTY(BlueprintAssignable, Category = "CustomDamage")
-		FTOnActorDeath OnDamageableDeath;
+	FTOnActorDeath OnDamageableDeath;
 
-
+	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "CustomDamage")
+	FOnDamageNormalChange OnDamageNormalChange;
 };

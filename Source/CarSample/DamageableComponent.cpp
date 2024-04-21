@@ -6,9 +6,8 @@
 
 
 // Sets default values for this component's properties
-UDamageableComponent::UDamageableComponent()
+UDamageableComponent::UDamageableComponent() : MaxLife(0), CurrentLife(0)
 {
-
 }
 
 
@@ -18,15 +17,17 @@ void UDamageableComponent::BeginPlay()
 	Super::BeginPlay();
 
 	CurrentLife = MaxLife;
-	
 }
 
 
 void UDamageableComponent::TakeDamage(int32 DamageAmount)
 {
 	
-	CurrentLife = FMath::Clamp(CurrentLife, 0, CurrentLife - DamageAmount);
-	
+	CurrentLife = FMath::Clamp(CurrentLife, 0, CurrentLife - static_cast<float>(DamageAmount));
+	if(DamageAmount != 0)
+	{
+		OnDamageNormalChange.Broadcast(CurrentLife / MaxLife);
+	}
 	
 	if (CurrentLife == 0)
 	{
