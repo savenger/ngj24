@@ -76,5 +76,6 @@ void ACarSamplePlayerController::OnPossess(APawn* InPawn)
 	Super::OnPossess(InPawn);
 
 	// get a pointer to the controlled pawn
-	VehiclePawn = CastChecked<ACarSamplePawn>(InPawn);
+	if(Cast<ACarSamplePawn>(InPawn))
+		VehiclePawn = CastChecked<ACarSamplePawn>(InPawn);
 }
