@@ -40,7 +40,11 @@ void UDamageableComponent::TakeDamage(int32 DamageAmount)
 
 			if (GEngine)
 				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Player Death"));
-			OnDamageableDeath.Broadcast(0);
+			if (ACarSampleOffroadCar* CarPawn = Cast<ACarSampleOffroadCar>( GetOwner()))
+			{
+				OnDamageableDeath.Broadcast(CarPawn->CarOffroadPlayerIndex);
+
+			}
 		}
 		else
 		{

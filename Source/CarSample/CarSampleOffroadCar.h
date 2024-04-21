@@ -39,6 +39,9 @@ class CARSAMPLE_API ACarSampleOffroadCar : public ACarSamplePawn
 
 public:
 
+	/* player index */
+	UPROPERTY(BlueprintReadWrite,EditAnywhere)
+	int32 CarOffroadPlayerIndex;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Damage, meta = (AllowPrivateAccess = "true"))
 	UDamageableComponent* DamageableComponent;
