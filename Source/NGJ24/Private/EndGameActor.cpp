@@ -52,6 +52,7 @@ void AEndGameActor::OpenEndGamePanel(int32 PlayerIndex)
 		if (UUIEndGameWidget* EndGameUI = Cast<UUIEndGameWidget>(UserWidget))
 		{
 			EndGameUI->OpenEndScreen(bRightIsWinner);
+			UGameplayStatics::SetGamePaused( this,true);
 		}
 	}
 	else
