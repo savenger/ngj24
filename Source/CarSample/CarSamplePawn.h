@@ -93,16 +93,17 @@ public:
 
 	// End Actor interface
 
-protected:
+public:
+	void SetupInput(APlayerController* InController);
 
 	/** Handles steering input */
-	void Steering(const FInputActionValue& Value);
+	void Steering(float AxisValue);
 
 	/** Handles throttle input */
-	void Throttle(const FInputActionValue& Value);
+	void Throttle(float AxisValue);
 
 	/** Handles brake input */
-	void Brake(const FInputActionValue& Value);
+	void Brake(float AxisValue);
 
 	/** Handles brake start/stop inputs */
 	void StartBrake(const FInputActionValue& Value);

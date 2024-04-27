@@ -9,6 +9,7 @@
 
 #include "DamageableComponent.h"
 
+
 ACarSampleOffroadCar::ACarSampleOffroadCar()
 {
 	// construct the mesh components
@@ -87,4 +88,10 @@ ACarSampleOffroadCar::ACarSampleOffroadCar()
 	// NOTE: Check the Blueprint asset for the Steering Curve
 	GetChaosVehicleMovement()->SteeringSetup.SteeringType = ESteeringType::AngleRatio;
 	GetChaosVehicleMovement()->SteeringSetup.AngleRatio = 0.7f;
+}
+
+void ACarSampleOffroadCar::BeginPlay()
+{
+	Super::BeginPlay();
+
 }

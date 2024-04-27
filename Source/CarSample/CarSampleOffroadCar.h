@@ -14,8 +14,10 @@ class UDamageableComponent;
 UCLASS(abstract)
 class CARSAMPLE_API ACarSampleOffroadCar : public ACarSamplePawn
 {
+
+private:
 	GENERATED_BODY()
-	
+
 	/** Chassis static mesh */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Meshes, meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* Chassis;
@@ -36,9 +38,9 @@ class CARSAMPLE_API ACarSampleOffroadCar : public ACarSamplePawn
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Meshes, meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* TireRearRight;
 
-
 public:
-
+	virtual void BeginPlay() override;
+	
 	/* player index */
 	UPROPERTY(BlueprintReadWrite,EditAnywhere)
 	int32 CarOffroadPlayerIndex;

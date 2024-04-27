@@ -58,38 +58,38 @@ void ACarSamplePawn::SetupPlayerInputComponent(class UInputComponent* PlayerInpu
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
-	{
-		// steering 
-		EnhancedInputComponent->BindAction(SteeringAction, ETriggerEvent::Triggered, this, &ACarSamplePawn::Steering);
-		EnhancedInputComponent->BindAction(SteeringAction, ETriggerEvent::Completed, this, &ACarSamplePawn::Steering);
-
-		// throttle 
-		EnhancedInputComponent->BindAction(ThrottleAction, ETriggerEvent::Triggered, this, &ACarSamplePawn::Throttle);
-		EnhancedInputComponent->BindAction(ThrottleAction, ETriggerEvent::Completed, this, &ACarSamplePawn::Throttle);
-
-		// break 
-		EnhancedInputComponent->BindAction(BrakeAction, ETriggerEvent::Triggered, this, &ACarSamplePawn::Brake);
-		EnhancedInputComponent->BindAction(BrakeAction, ETriggerEvent::Started, this, &ACarSamplePawn::StartBrake);
-		EnhancedInputComponent->BindAction(BrakeAction, ETriggerEvent::Completed, this, &ACarSamplePawn::StopBrake);
-
-		// handbrake 
-		EnhancedInputComponent->BindAction(HandbrakeAction, ETriggerEvent::Started, this, &ACarSamplePawn::StartHandbrake);
-		EnhancedInputComponent->BindAction(HandbrakeAction, ETriggerEvent::Completed, this, &ACarSamplePawn::StopHandbrake);
-
-		// look around 
-		//EnhancedInputComponent->BindAction(LookAroundAction, ETriggerEvent::Triggered, this, &ACarSamplePawn::LookAround);
-
-		// toggle camera 
-		EnhancedInputComponent->BindAction(ToggleCameraAction, ETriggerEvent::Triggered, this, &ACarSamplePawn::ToggleCamera);
-
-		// reset the vehicle 
-		EnhancedInputComponent->BindAction(ResetVehicleAction, ETriggerEvent::Triggered, this, &ACarSamplePawn::ResetVehicle);
-	}
-	else
-	{
-		UE_LOG(LogTemplateVehicle, Error, TEXT("'%s' Failed to find an Enhanced Input component! This template is built to use the Enhanced Input system. If you intend to use the legacy system, then you will need to update this C++ file."), *GetNameSafe(this));
-	}
+	// if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
+	// {
+	// 	// steering 
+	// 	EnhancedInputComponent->BindAction(SteeringAction, ETriggerEvent::Triggered, this, &ACarSamplePawn::Steering);
+	// 	EnhancedInputComponent->BindAction(SteeringAction, ETriggerEvent::Completed, this, &ACarSamplePawn::Steering);
+	//
+	// 	// throttle 
+	// 	EnhancedInputComponent->BindAction(ThrottleAction, ETriggerEvent::Triggered, this, &ACarSamplePawn::Throttle);
+	// 	EnhancedInputComponent->BindAction(ThrottleAction, ETriggerEvent::Completed, this, &ACarSamplePawn::Throttle);
+	//
+	// 	// break 
+	// 	EnhancedInputComponent->BindAction(BrakeAction, ETriggerEvent::Triggered, this, &ACarSamplePawn::Brake);
+	// 	EnhancedInputComponent->BindAction(BrakeAction, ETriggerEvent::Started, this, &ACarSamplePawn::StartBrake);
+	// 	EnhancedInputComponent->BindAction(BrakeAction, ETriggerEvent::Completed, this, &ACarSamplePawn::StopBrake);
+	//
+	// 	// handbrake 
+	// 	EnhancedInputComponent->BindAction(HandbrakeAction, ETriggerEvent::Started, this, &ACarSamplePawn::StartHandbrake);
+	// 	EnhancedInputComponent->BindAction(HandbrakeAction, ETriggerEvent::Completed, this, &ACarSamplePawn::StopHandbrake);
+	//
+	// 	// look around 
+	// 	//EnhancedInputComponent->BindAction(LookAroundAction, ETriggerEvent::Triggered, this, &ACarSamplePawn::LookAround);
+	//
+	// 	// toggle camera 
+	// 	EnhancedInputComponent->BindAction(ToggleCameraAction, ETriggerEvent::Triggered, this, &ACarSamplePawn::ToggleCamera);
+	//
+	// 	// reset the vehicle 
+	// 	EnhancedInputComponent->BindAction(ResetVehicleAction, ETriggerEvent::Triggered, this, &ACarSamplePawn::ResetVehicle);
+	// }
+	// else
+	// {
+	// 	UE_LOG(LogTemplateVehicle, Error, TEXT("'%s' Failed to find an Enhanced Input component! This template is built to use the Enhanced Input system. If you intend to use the legacy system, then you will need to update this C++ file."), *GetNameSafe(this));
+	// }
 }
 
 void ACarSamplePawn::Tick(float Delta)
@@ -107,31 +107,69 @@ void ACarSamplePawn::Tick(float Delta)
 	// BackSpringArm->SetRelativeRotation(FRotator(0.0f, CameraYaw, 0.0f));
 }
 
-void ACarSamplePawn::Steering(const FInputActionValue& Value)
+void ACarSamplePawn::SetupInput(APlayerController* InController)
 {
-	// get the input magnitude for steering
-	float SteeringValue = Value.Get<float>();
-
-	// add the input
-	ChaosVehicleMovement->SetSteeringInput(SteeringValue);
+	EnableInput(InController);
+	UE_LOG(LogTemp, Log, TEXT("Controller name: %d"), InController->Player->GetUniqueID())
+	if(InputComponent)
+	{
+		// steering 
+		// 	EnhancedInputComponent->BindAction(SteeringAction, ETriggerEvent::Triggered, this, &ACarSamplePawn::Steering);
+		// 	EnhancedInputComponent->BindAction(SteeringAction, ETriggerEvent::Completed, this, &ACarSamplePawn::Steering);
+		InputComponent->BindAxis(FName("Steering"),this, &ACarSamplePawn::Steering);
+		//InputComponent->BindAxis(FName("RightSteering"),this, &ACarSamplePawn::Steering);
+		
+		//
+		// throttle 
+		InputComponent->BindAxis(FName("ThrottleUp"),this, &ACarSamplePawn::Throttle);
+		InputComponent->BindAxis(FName("ThrottleDown"),this, &ACarSamplePawn::Brake);
+		//InputComponent->BindAxis(FName("ThrottleDown"),this, &ACarSamplePawn::Throttle);
+		//
+		// 	// break 
+		// 	EnhancedInputComponent->BindAction(BrakeAction, ETriggerEvent::Triggered, this, &ACarSamplePawn::Brake);
+		// 	EnhancedInputComponent->BindAction(BrakeAction, ETriggerEvent::Started, this, &ACarSamplePawn::StartBrake);
+		// 	EnhancedInputComponent->BindAction(BrakeAction, ETriggerEvent::Completed, this, &ACarSamplePawn::StopBrake);
+		//
+		// 	// handbrake 
+		// 	EnhancedInputComponent->BindAction(HandbrakeAction, ETriggerEvent::Started, this, &ACarSamplePawn::StartHandbrake);
+		// 	EnhancedInputComponent->BindAction(HandbrakeAction, ETriggerEvent::Completed, this, &ACarSamplePawn::StopHandbrake);
+		//
+		// 	// look around 
+		// 	//EnhancedInputComponent->BindAction(LookAroundAction, ETriggerEvent::Triggered, this, &ACarSamplePawn::LookAround);
+		//
+		// 	// toggle camera 
+		// 	EnhancedInputComponent->BindAction(ToggleCameraAction, ETriggerEvent::Triggered, this, &ACarSamplePawn::ToggleCamera);
+		//
+		// 	// reset the vehicle 
+		// 	EnhancedInputComponent->BindAction(ResetVehicleAction, ETriggerEvent::Triggered, this, &ACarSamplePawn::ResetVehicle);
+		// 
+		//InputComponent->BindAxis
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Error, input component null!"))
+	}
 }
 
-void ACarSamplePawn::Throttle(const FInputActionValue& Value)
+void ACarSamplePawn::Steering(float AxisValue)
 {
-	// get the input magnitude for the throttle
-	float ThrottleValue = Value.Get<float>();
-
 	// add the input
-	ChaosVehicleMovement->SetThrottleInput(ThrottleValue);
+	ChaosVehicleMovement->SetSteeringInput(AxisValue);
 }
 
-void ACarSamplePawn::Brake(const FInputActionValue& Value)
+void ACarSamplePawn::Throttle(float AxisValue)
 {
-	// get the input magnitude for the brakes
-	float BreakValue = Value.Get<float>();
+	{
+		// add the input
+		UE_LOG(LogTemp, Log,TEXT("Axis: %f"), AxisValue);
+		ChaosVehicleMovement->SetThrottleInput(AxisValue);
+	}
+}
 
+void ACarSamplePawn::Brake(float AxisValue)
+{
 	// add the input
-	ChaosVehicleMovement->SetBrakeInput(BreakValue);
+	ChaosVehicleMovement->SetBrakeInput(AxisValue);
 }
 
 void ACarSamplePawn::StartBrake(const FInputActionValue& Value)

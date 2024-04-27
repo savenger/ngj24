@@ -2,6 +2,8 @@
 
 
 #include "CarSamplePlayerController.h"
+
+#include "CarSampleOffroadCar.h"
 #include "CarSamplePawn.h"
 #include "CarSampleUI.h"
 #include "EnhancedInputSubsystems.h"
@@ -77,5 +79,8 @@ void ACarSamplePlayerController::OnPossess(APawn* InPawn)
 
 	// get a pointer to the controlled pawn
 	if(Cast<ACarSamplePawn>(InPawn))
+	{
 		VehiclePawn = CastChecked<ACarSamplePawn>(InPawn);
+		VehiclePawn->SetupInput(this);
+	}
 }
