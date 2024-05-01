@@ -34,9 +34,9 @@ void AEndGameActor::Tick(float DeltaTime)
 
 }
 
-void AEndGameActor::OpenEndGamePanel(int32 PlayerIndex)
+void AEndGameActor::OpenEndGamePanel(int32 LooserPlayerIndex)
 {
-	bool bRightIsWinner = PlayerIndex == 0 ? true : false;
+	bool bRightIsWinner = LooserPlayerIndex == 0 ? true : false;
 
 	if (IsValid(EndGameWidget))
 	{
