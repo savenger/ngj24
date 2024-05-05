@@ -142,6 +142,8 @@ void ACarSamplePawn::SetupInput(APlayerController* InController)
 		//
 		// 	// reset the vehicle 
 		// 	EnhancedInputComponent->BindAction(ResetVehicleAction, ETriggerEvent::Triggered, this, &ACarSamplePawn::ResetVehicle);
+		//"VehicleReset"
+		InputComponent->BindAction(FName("VehicleReset"), IE_Pressed, this, &ACarSamplePawn::ResetVehicle);
 		// 
 		//InputComponent->BindAxis
 	}
@@ -223,7 +225,7 @@ void ACarSamplePawn::ToggleCamera(const FInputActionValue& Value)
 	BackCamera->SetActive(!bFrontCameraActive);
 }
 
-void ACarSamplePawn::ResetVehicle(const FInputActionValue& Value)
+void ACarSamplePawn::ResetVehicle()
 {
 	// reset to a location slightly above our current one
 	FVector ResetLocation = GetActorLocation() + FVector(0.0f, 0.0f, 50.0f);

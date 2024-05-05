@@ -120,7 +120,7 @@ public:
 	void ToggleCamera(const FInputActionValue& Value);
 
 	/** Handles reset vehicle input */
-	void ResetVehicle(const FInputActionValue& Value);
+	void ResetVehicle();
 
 	/** Called when the brake lights are turned on or off */
 	UFUNCTION(BlueprintImplementableEvent, Category="Vehicle")
